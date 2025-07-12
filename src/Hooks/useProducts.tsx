@@ -15,7 +15,7 @@ const useProducts = () => {
         
         const response = await axios({
           method: "get",
-          baseURL: "http://localhost:8000/api",
+          baseURL: process.env.NEXT_PUBLIC_HOST_URL || "http://localhost:8000/api",
           url: "/products",
         })
         
