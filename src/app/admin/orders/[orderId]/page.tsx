@@ -1,11 +1,10 @@
 "use client"
 import useAdminOrder from '@/Hooks/useAdminOrder'
-import axios from 'axios'
 import { useParams } from 'next/navigation'
 import React from 'react'
 import OrderDetails from './OrderDetailsContainer'
 
-const page = () => {
+const OrderPage = () => {
     const { orderId } = useParams()
     const { data, error, isLoading } = useAdminOrder({ id: orderId?.toString() || "" })
     return (
@@ -17,4 +16,4 @@ const page = () => {
     )
 }
 
-export default page
+export default OrderPage

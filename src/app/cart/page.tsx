@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from 'react'
 import ProductCard from '../Home/ProductCard'
 import { Minus, Plus, XCircle } from 'lucide-react'
-import { ICartItem, IProduct } from '@/types/product'
+import { ICartItem } from '@/types/product'
 import { useRouter } from 'next/navigation'
 
-const page = () => {
+const CartPage = () => {
     // const { products, isLoading, error } = useProducts()
-    const [products, setProducts] = useState<ICartItem[] | null >([])
+    const [products, setProducts] = useState<ICartItem[] | null>([])
     const [bill, setBill] = useState({
         subTotal: 0,
         shipping: 0,
@@ -16,29 +16,19 @@ const page = () => {
     const isLoading = false
     const error = false
 
-    const getBill = () => {
-        let sum = 0;
-        products?.forEach((pro: ICartItem) => {
-            sum += Number(pro.product.price.retail)
-        })
-        setBill({
-            subTotal: sum,
-            shipping: 10,
-            total: sum + 10
-        })
-    }
+
     const getCart = () => {
         setProducts(JSON.parse(localStorage.getItem('cart')) || [])
     };
 
     const removeFromCart = (productId: string) => {
-        let cart = products?.filter((item: ICartItem) => item.product._id !== productId) || [] ;
+        const cart = products?.filter((item: ICartItem) => item.product._id !== productId) || [];
         setProducts(cart)
         localStorage.setItem('cart', JSON.stringify(cart));
     };
 
     const updateQuantity = (productId: string, newQuantity: number) => {
-        let cart = products ? [...products] : [];
+        const cart = products ? [...products] : [];
         const item = cart.find((item: ICartItem) => item.product._id === productId);
         if (item) {
             item.quantity = newQuantity;
@@ -50,6 +40,17 @@ const page = () => {
     }, [])
 
     useEffect(() => {
+        const getBill = () => {
+            let sum = 0;
+            products?.forEach((pro: ICartItem) => {
+                sum += Number(pro.product.price.retail)
+            })
+            setBill({
+                subTotal: sum,
+                shipping: 10,
+                total: sum + 10
+            })
+        }
         if (products) {
             getBill()
         }
@@ -63,7 +64,7 @@ const page = () => {
                     isLoading ? <p>Loading...</p> : error ? <p>{error}</p> : products ? <div className='flex gap-5 flex-wrap basis-[70%]'>
                         {
                             products.map((pro: ICartItem) => {
-                                return <CartItem product={pro} handleRemove={removeFromCart} updateQuantity={updateQuantity} />
+                                return <CartItem product={pro} handleRemove={removeFromCart} updateQuantity={updateQuantity} key={pro.product._id} />
                             })
                         }
                     </div> : "No Items in cart"
@@ -119,9 +120,9 @@ const BillCard = ({ bill }: { bill: { subTotal: number, shipping: number, total:
             <p className='font-medium flex justify-between'>Shipping <p>${bill.shipping}</p></p>
 
             <p className='font-medium  pt-[20px] border-t flex justify-between'>TOTAL(TAX INCL.) <p>${bill.total}</p></p>
-            <button className='py-4 bg-gray-300 cursor-pointer' onClick={()=>router.push("/checkout")}>CONTINUE</button>
+            <button className='py-4 bg-gray-300 cursor-pointer' onClick={() => router.push("/checkout")}>CONTINUE</button>
         </div>
     )
 }
 
-export default page
+export default CartPage

@@ -1,8 +1,8 @@
 // filterConfig.js
-import CheckboxFilter from './CheckboxFilter';
+// import CheckboxFilter from './CheckboxFilter';
 import PriceRangeFilter from './PriceRangeFilter';
 import SelectFilter from './SelectFilter';
-import RatingFilter from './RatingFilter';
+// import RatingFilter from './RatingFilter';
 
 export const filterConfig = [
   // {

@@ -1,31 +1,21 @@
 "use client"
 import Form from '@/components/Form';
-import { ICartItem, IProduct } from '@/types/product';
+import { ICartItem } from '@/types/product';
 import axios from 'axios';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 
-const page = () => {
+const CheckoutPage = () => {
     const [products, setProducts] = useState<ICartItem[] | null>([])
     const [bill, setBill] = useState({
         subTotal: 0,
         shipping: 0,
         total: 0
     })
-    const isLoading = false
-    const error = false
+    // const isLoading = false
+    // const error = false
 
-    const getBill = () => {
-        let sum = 0;
-        products?.forEach((pro: ICartItem) => {
-            sum += Number(pro.product.price.retail)
-        })
-        setBill({
-            subTotal: sum,
-            shipping: 10,
-            total: sum + 10
-        })
-    }
+
     const getCart = () => {
         setProducts(JSON.parse(localStorage.getItem('cart')) || [])
     };
@@ -34,6 +24,17 @@ const page = () => {
         getCart()
     }, [])
     useEffect(() => {
+        const getBill = () => {
+            let sum = 0;
+            products?.forEach((pro: ICartItem) => {
+                sum += Number(pro.product.price.retail)
+            })
+            setBill({
+                subTotal: sum,
+                shipping: 10,
+                total: sum + 10
+            })
+        }
         if (products) {
             getBill()
         }
@@ -56,7 +57,7 @@ const OrderItemsContainer = ({ products, bill }: { products: ICartItem[] | null,
             {products ? <div className='py-5 border-b flex flex-col gap-3'>
                 {
                     products.map((pro: ICartItem) => {
-                        return <div className='flex'>
+                        return <div className='flex' key={pro.product._id}>
                             <Image src={"/product1.png"} height={130} width={110} alt={pro.product.title} />
                             <div className='flex flex-col justify-between px-4 py-2 w-full'>
                                 <div className='flex flex-col'>
@@ -123,7 +124,7 @@ const CheckoutForm = ({ items }: { items: ICartItem[] | null }) => {
         }
 
         // items = []
-        for(const item of items) {
+        for (const item of items) {
             item.dialColor = item.product.variants[item.variantIndex].dialColor
             item.strapColor = item.product.variants[item.variantIndex].strapColor
         }
@@ -154,4 +155,4 @@ const CheckoutForm = ({ items }: { items: ICartItem[] | null }) => {
         </div>
     );
 };
-export default page
+export default CheckoutPage

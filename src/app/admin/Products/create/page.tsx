@@ -3,7 +3,7 @@ import Form from "@/components/Form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-const Create = () => {
+const CreateProductPage = () => {
     const router = useRouter()
     const steps = [
         {
@@ -54,7 +54,7 @@ const Create = () => {
             ]
         },
     ];
-
+    // eslint-disable-next-line
     const handleFormSubmit = async (data: any) => {
         try {
             console.log('Form submitted with data:', data);
@@ -63,11 +63,12 @@ const Create = () => {
                 baseURL: process.env.NEXT_PUBLIC_HOST_URL,
                 url: "/products",
                 data: {
-                    ...data, price: { retail: data.retailPrice, display: data.displayPrice  }
+                    ...data, price: { retail: data.retailPrice, display: data.displayPrice }
                 },
             })
             alert(`Product Created! \n Title: \t $${res.data.data.title}\n `);
             router.push("/admin/Products")
+            // eslint-disable-next-line
         } catch (error: any) {
             alert(error?.response?.data?.message || "Could not create product please try again")
         }
@@ -87,4 +88,4 @@ const Create = () => {
     );
 };
 
-export default Create
+export default CreateProductPage

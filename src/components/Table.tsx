@@ -5,7 +5,9 @@ import React from 'react';
 type Column<T> = {
     header: string;
     accessor: keyof T | string;
+    // eslint-disable-next-line
     cell?: (value: any, row: T) => React.ReactNode;
+    // eslint-disable-next-line
     className?: (value: any, row: T) => string;
 };
 
@@ -14,7 +16,7 @@ interface TableProps<T> {
     data: T[];
     onRowClick?: (row: T) => void;
 }
-
+// eslint-disable-next-line
 function Table<T extends { [key: string]: any }>({
     columns,
     data,

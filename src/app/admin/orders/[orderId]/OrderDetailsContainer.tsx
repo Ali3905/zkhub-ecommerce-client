@@ -3,6 +3,7 @@
 import React from 'react';
 import { IOrder } from '@/types/order';
 import { formatDate } from '@/utils/date';
+import Image from 'next/image';
 
 interface OrderDetailsProps {
     order: IOrder;
@@ -29,7 +30,7 @@ const AddressCard = ({ title, address }: { title: string; address: IOrder['shipp
 const OrderItemCard = ({ item }: { item: IOrder['items'][0] }) => (
     <div className="p-4 border rounded-md bg-gray-50 flex gap-4 items-start">
         {item.productSnapshot.coverImage && (
-            <img src={item.productSnapshot.coverImage} alt={item.productSnapshot.title} className="w-16 h-16 object-cover rounded" />
+            <Image src={item.productSnapshot.coverImage} alt={item.productSnapshot.title} height={64} width={64} className="w-16 h-16 object-cover rounded" />
         )}
         <div className="flex-grow">
             <h4 className="font-semibold">{item.productSnapshot.title}</h4>
@@ -41,7 +42,7 @@ const OrderItemCard = ({ item }: { item: IOrder['items'][0] }) => (
     </div>
 );
 
-const StatusBadge = ({ value, type }: { value: string; type: 'status' | 'payment' }) => {
+const StatusBadge = ({ value }: { value: string; type: 'status' | 'payment' }) => {
     const baseClass = 'px-2 py-1 rounded-full text-xs font-semibold capitalize';
     const statusMap: Record<string, string> = {
         PENDING: 'bg-yellow-100 text-yellow-800',

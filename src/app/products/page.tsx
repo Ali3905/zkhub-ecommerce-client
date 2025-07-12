@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
 import Filters from './Filters'
 import ProductList from './ProductList'
@@ -14,7 +14,21 @@ interface Filters {
   ratings?: string[],
 }
 
-const page = () => {
+const AllProductsPage = () => {
+
+  return (
+    <div>
+      <Navbar />
+      <Suspense fallback={"Loading..."}>
+        <PageContainer />
+      </Suspense>
+    </div>
+  )
+}
+
+export default AllProductsPage
+
+const PageContainer = () => {
   const { products, isLoading, error } = useProducts()
   const searchParams = useSearchParams()
   const q = searchParams.get("q")
@@ -89,14 +103,11 @@ const page = () => {
     });
   };
   return (
-    <div>
-      <Navbar />
-      <div className='flex gap-5'>
-        <Filters filters={filters} onClearAll={clearAllFilters} onFilterChange={handleFilterChange} />
-        <ProductList products={filteredProducts} />
-      </div>
+    <div className='flex gap-5'>
+      <Filters filters={filters} onClearAll={clearAllFilters} onFilterChange={handleFilterChange} />
+      {
+        isLoading ? "Loading..." : error ? error : <ProductList products={filteredProducts} />
+      }
     </div>
   )
 }
-
-export default page

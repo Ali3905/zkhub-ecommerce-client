@@ -4,7 +4,7 @@ import React from 'react'
 import ProductTable from './ProductsTable'
 import { useRouter } from 'next/navigation'
 
-const page = () => {
+const ProductsPage = () => {
   const { products, isLoading, error } = useProducts()
   const router = useRouter()
   return (
@@ -20,4 +20,4 @@ const page = () => {
   )
 }
 
-export default page
+export default ProductsPage

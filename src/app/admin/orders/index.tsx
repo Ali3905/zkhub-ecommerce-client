@@ -1,11 +1,10 @@
-import Table from '@/components/Table'
 import { IOrder } from '@/types/order'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import OrderTable from './OrdersList'
 
 
-const index = () => {
+const Index = () => {
     const [orders, setOrders] = useState<null | IOrder[]>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     
@@ -20,6 +19,8 @@ const index = () => {
             setOrders(res.data.data.orders)
         } catch (error) {
             alert("Could not get fetch the orders")
+            console.log(error);
+            
         } finally {
             setIsLoading(false)
         }
@@ -38,4 +39,4 @@ const index = () => {
     )
 }
 
-export default index
+export default Index

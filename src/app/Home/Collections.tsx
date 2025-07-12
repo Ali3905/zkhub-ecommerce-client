@@ -1,10 +1,10 @@
 "use client"
 import React from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react';
+// import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import ProductCard from './ProductCard';
-import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Navigation } from 'swiper/modules';
+import { ChevronDown } from 'lucide-react';
+// import { Navigation } from 'swiper/modules';
 
 const Collections = ({ products }) => {
     return (

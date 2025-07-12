@@ -23,7 +23,7 @@ const ProductDetails = ({ id }: { id: number }) => {
 
     alert("Product added in cart");
 
-    let cart: ICartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
+    const cart: ICartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
 
     const existingItem = cart.find(
       (item: ICartItem) =>

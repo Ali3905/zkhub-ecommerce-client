@@ -35,7 +35,7 @@ const Create = () => {
             ]
         },
     ];
-
+    // eslint-disable-next-line
     const handleFormSubmit = async (data: any) => {
         try {
             console.log('Form submitted with data:', data);
@@ -47,6 +47,7 @@ const Create = () => {
             })
             alert(`Product Created! \n Title: \t $${res.data.data.title}\n `);
             router.push("/")
+            // eslint-disable-next-line
         } catch (error: any) {
             alert(error?.response?.data?.message || "Could not create product please try again")
         }

@@ -6,40 +6,38 @@ const useProducts = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchProducts = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
-      
-      const response = await axios({
-        method: "get",
-        baseURL: "http://localhost:8000/api",
-        url: "/products",
-      })
-      
-      
-      setProducts(response.data.data);
-    } catch (err: any) {
-      setError(err.message);
-      console.error('Error fetching products:', err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
+  
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        
+        const response = await axios({
+          method: "get",
+          baseURL: "http://localhost:8000/api",
+          url: "/products",
+        })
+        
+        
+        setProducts(response.data.data);
+        // eslint-disable-next-line
+      } catch (err: any) {
+        setError(err.message);
+        console.error('Error fetching products:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     fetchProducts();
   }, []);
 
-  const refetch = () => {
-    fetchProducts();
-  };
+
 
   return {
     products,
     isLoading,
     error,
-    refetch
   };
 };
 

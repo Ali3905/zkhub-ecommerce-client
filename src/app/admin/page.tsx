@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react';
-import { Menu, X, Home, User, Settings, BarChart } from 'lucide-react';
-import { Analytics, Dashboard, Profile, SettingsPage } from './components';
+import { Menu, Home, User, Settings } from 'lucide-react';
+import {  Dashboard, SettingsPage } from './components';
 import Orders from './orders'
 import Sidebar from './Sidebar';
 import { IDType, NavItems } from '@/types/navItem';
