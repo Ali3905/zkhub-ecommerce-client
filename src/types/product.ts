@@ -8,7 +8,7 @@ export interface IProduct {
     display: number, 
   };
   images: string[]; // Assuming array of image URLs
-  coverImage?: string;
+  coverImage: string;
   category?: string;
   subCategory?: string;
   gender?: "MALE" | "FEMALE" | "KIDS" | "UNISEX";

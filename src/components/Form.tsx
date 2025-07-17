@@ -3,6 +3,8 @@ import NestedFieldsArray from './inputs/NestedFieldsArray';
 
 const InputField = ({ field, formData, setFormData, errors, handleChange, value }) => {
     const { name, placeholder, type, options, col } = field;
+    const [previews, setPreviews] = useState([]);
+
 
     const baseInputClasses = "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200";
     const errorClasses = errors[name] ? "border-red-500 focus:ring-red-500" : "";
@@ -76,6 +78,30 @@ const InputField = ({ field, formData, setFormData, errors, handleChange, value 
                         ))}
                     </div>
                 );
+            case 'file':
+                const isMultiple = field.multiple || false;
+                return (
+                    <div>
+                        <input
+                            type="file"
+                            multiple={isMultiple}
+                            accept="image/*"
+                            onChange={(e) => {
+                                const files = Array.from(e.target.files);
+                                const previews = files.map(file => URL.createObjectURL(file));
+                                handleChange(name, isMultiple ? files : files[0]);
+                                setPreviews(previews);
+                            }}
+                            className={`${baseInputClasses} ${errorClasses}`}
+                        />
+                        <div className="mt-2 flex flex-wrap gap-2">
+                            {previews?.map((src, idx) => (
+                                <img key={idx} src={src} alt="preview" className="h-20 rounded object-cover" />
+                            ))}
+                        </div>
+                    </div>
+                );
+
             case "nested-fields-array":
                 return (
                     <NestedFieldsArray

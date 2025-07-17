@@ -5,9 +5,11 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 const ProductDetails = ({ id }: { id: number }) => {
-  const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
+  const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
   const [selectedVariantIndex, setSelectedVariantIndex] = useState<number | null>(null);
   const { data: product, isLoading, error } = useProduct({ id });
+
+  console.log({product});
 
   const addToCart = (product: IProduct, quantity: number = 1) => {
     if (selectedVariantIndex === null) {
@@ -38,14 +40,14 @@ const ProductDetails = ({ id }: { id: number }) => {
   };
 
   return product ? (
-    <div className="max-w-[1200px] mx-auto mt-[100px] flex justify-center gap-10">
+    <div className="max-w-[1200px] min-h-[55vh] mx-auto mt-[100px] flex justify-center gap-10">
       {/* Left Image Section */}
       <div className="flex gap-5">
         <Image
           width={360}
           height={440}
           alt={product.title}
-          src={product.images[activeImageIndex] || "https://shorturl.at/NxD5e"}
+          src={activeImageIndex === null ? product.coverImage : product.images[activeImageIndex]}
         />
         <div className="flex flex-col gap-2">
           {product.images.map((img, i) => (
@@ -54,8 +56,8 @@ const ProductDetails = ({ id }: { id: number }) => {
               src={img}
               alt={product.title}
               width={60}
-              height={75}
-              className={`cursor-pointer ${
+              height={115}
+              className={`cursor-pointer aspect-[9/10] ${
                 activeImageIndex === i ? "" : "opacity-50"
               }`}
               onClick={() => setActiveImageIndex(i)}
@@ -65,7 +67,7 @@ const ProductDetails = ({ id }: { id: number }) => {
       </div>
 
       {/* Right Product Info Section */}
-      <div className="border rounded-lg px-[30px] py-[20px] flex flex-col">
+      <div className="border rounded-lg px-[30px] py-[20px] flex flex-col basis-[30%]">
         <p className="font-semibold">{product.title}</p>
         <span className="flex flex-col font-semibold mb-4">
           <p className="text-red-400 line-through">${product.price.display}</p>

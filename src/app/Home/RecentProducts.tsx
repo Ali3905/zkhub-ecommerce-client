@@ -7,8 +7,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Navigation } from 'swiper/modules';
 import useProducts from '../../Hooks/useProducts';
 import { useRouter } from 'next/navigation';
+import { IProduct } from '@/types/product';
 
-const RecentProducts = ({ }) => {
+const RecentProducts = () => {
     const { products, isLoading, error } = useProducts()
     const router = useRouter()
 
@@ -16,7 +17,7 @@ const RecentProducts = ({ }) => {
     if (error) return <div>Error: {error}</div>;
     return (
         <div className='max-w-[1500px] mx-auto px-[70px]'>
-            <span className='flex justify-between items-end mb-[20px] mt-[100px] cursor-pointer' onClick={()=>router.push("/products")}>
+            <span className='flex justify-between items-end mb-[20px] mt-[100px] cursor-pointer' onClick={() => router.push("/products")}>
                 <h2 className='font-bold text-[48px] leading-[40px]'>New <br /> This Week</h2>
                 <p>See All</p>
             </span>
@@ -31,9 +32,9 @@ const RecentProducts = ({ }) => {
             >
                 <div>
                     {
-                        products.map((pro) => {
+                        products.map((pro: IProduct) => {
                             return <SwiperSlide key={pro._id}>
-                                <ProductCard product={pro} />
+                                {pro && <ProductCard product={pro} />}
                             </SwiperSlide>
                         })
                     }

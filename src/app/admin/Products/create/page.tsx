@@ -49,6 +49,21 @@ const CreateProductPage = () => {
                             ]
                         },
                         { name: "brandName", placeholder: "Brand", type: "text" },
+                        {
+                            type: 'file',
+                            name: 'coverImage',
+                            placeholder: 'Upload Cover Image',
+                            col: 12,
+                            multiple: false,
+                        },
+                        {
+                            type: 'file',
+                            name: 'images',
+                            placeholder: 'Upload Image',
+                            col: 12,
+                            multiple: true,
+                        },
+
                     ]
                 },
             ]
@@ -57,22 +72,54 @@ const CreateProductPage = () => {
     // eslint-disable-next-line
     const handleFormSubmit = async (data: any) => {
         try {
-            console.log('Form submitted with data:', data);
-            const res = await axios({
-                method: "post",
-                baseURL: process.env.NEXT_PUBLIC_HOST_URL,
-                url: "/products",
-                data: {
-                    ...data, price: { retail: data.retailPrice, display: data.displayPrice }
-                },
-            })
+            const formData = new FormData();
+
+            // Append basic fields
+            for (const key in data) {
+                if (
+                    key === 'images' && Array.isArray(data[key])
+                ) {
+                    data.images.forEach((file: File) => {
+                        formData.append('images', file);
+                    });
+                } else if (key === 'coverImage') {
+                    formData.append('coverImage', data[key]);
+                } else if (key === 'variants') {
+                    data.variants.forEach((variant, i) => {
+                        formData.append(`variants[${i}][dialColor]`, variant.dialColor);
+                        formData.append(`variants[${i}][strapColor]`, variant.strapColor);
+                        formData.append(`variants[${i}][stock]`, variant.stock);
+                    });
+
+                } else {
+                    // Append all other fields
+                    formData.append(key, data[key]);
+                }
+            }
+
+            // Append price object
+            formData.append('price[retail]', data.retailPrice);
+            formData.append('price[display]', data.displayPrice);
+
+
+
+            const res = await axios.post(
+                `${process.env.NEXT_PUBLIC_HOST_URL}/products`,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            );
+
             alert(`Product Created! \n Title: \t $${res.data.data.title}\n `);
-            router.push("/admin/Products")
-            // eslint-disable-next-line
+            router.push("/admin");
         } catch (error: any) {
-            alert(error?.response?.data?.message || "Could not create product please try again")
+            alert(error?.response?.data?.message || "Could not create product, please try again");
         }
     };
+
 
     return (
         <div className="flex-grow">

@@ -5,8 +5,8 @@ import ProductDetails from './ProductDetails'
 const page = ({ params }) => {
   return (
     <div>
-        <Navbar />
-        <ProductDetails id={params.productId} />
+      <Navbar />
+      {params.productId && <ProductDetails id={params.productId} />}
     </div>
   )
 }

@@ -58,7 +58,7 @@ const OrderItemsContainer = ({ products, bill }: { products: ICartItem[] | null,
                 {
                     products.map((pro: ICartItem) => {
                         return <div className='flex' key={pro.product._id}>
-                            <Image src={"/product1.png"} height={130} width={110} alt={pro.product.title} />
+                            <Image src={pro.product.coverImage} height={130} width={110} alt={pro.product.title} />
                             <div className='flex flex-col justify-between px-4 py-2 w-full'>
                                 <div className='flex flex-col'>
                                     <p className='font-semibold'>{pro.product.title}</p>
