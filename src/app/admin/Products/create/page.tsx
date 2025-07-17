@@ -115,6 +115,7 @@ const CreateProductPage = () => {
 
             alert(`Product Created! \n Title: \t $${res.data.data.title}\n `);
             router.push("/admin");
+            // eslint-disable-next-line
         } catch (error: any) {
             alert(error?.response?.data?.message || "Could not create product, please try again");
         }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import NestedFieldsArray from './inputs/NestedFieldsArray';
+import Image from 'next/image';
 
 const InputField = ({ field, formData, setFormData, errors, handleChange, value }) => {
     const { name, placeholder, type, options, col } = field;
@@ -96,7 +97,7 @@ const InputField = ({ field, formData, setFormData, errors, handleChange, value 
                         />
                         <div className="mt-2 flex flex-wrap gap-2">
                             {previews?.map((src, idx) => (
-                                <img key={idx} src={src} alt="preview" className="h-20 rounded object-cover" />
+                                <Image key={idx} src={src} alt="preview" className="h-20 rounded object-cover" />
                             ))}
                         </div>
                     </div>
