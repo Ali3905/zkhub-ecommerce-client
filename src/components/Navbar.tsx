@@ -34,7 +34,7 @@ const Navbar = () => {
                     </div>
                 </ul>
             </div>
-            <Image width={35} height={35} alt='logo' src={"/logo.png"} className='w-[35px] aspect-square' />
+            <Image width={35} height={35} alt='logo' src={"/logo.jpg"} className='w-[35px] aspect-square' />
             <div className='flex items-center gap-[20px]'>
                 <button className='bg-black rounded-full px-5 py-2 text-white h-full cursor-pointer' onClick={() => router.push("/cart")}>Cart</button>
             </div>
