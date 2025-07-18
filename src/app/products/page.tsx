@@ -14,13 +14,21 @@ interface Filters {
   ratings?: string[],
 }
 
-const AllProductsPage = () => {
 
+
+const AllProductsPage = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const handleOpen = () => {
+    setIsOpen(true)
+  }
+  const handleClose = () => {
+    setIsOpen(false)
+  }
   return (
     <div>
-      <Navbar />
+      <Navbar handleOpenSidebar={handleOpen} />
       <Suspense fallback={"Loading..."}>
-        <PageContainer />
+        <PageContainer handleCloseSidebar={handleClose} isOpen={isOpen} />
       </Suspense>
     </div>
   )
@@ -28,7 +36,7 @@ const AllProductsPage = () => {
 
 export default AllProductsPage
 
-const PageContainer = () => {
+const PageContainer = ({ handleCloseSidebar, isOpen }) => {
   const { products, isLoading, error } = useProducts()
   const searchParams = useSearchParams()
   const q = searchParams.get("q")
@@ -103,8 +111,8 @@ const PageContainer = () => {
     });
   };
   return (
-    <div className='flex gap-5'>
-      <Filters filters={filters} onClearAll={clearAllFilters} onFilterChange={handleFilterChange} />
+    <div className='flex gap-5 relative'>
+      <Filters filters={filters} onClearAll={clearAllFilters} onFilterChange={handleFilterChange} handleClose={handleCloseSidebar} isOpen={isOpen} />
       {
         isLoading ? "Loading..." : error ? error : <ProductList products={filteredProducts} />
       }

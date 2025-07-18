@@ -9,7 +9,7 @@ const ProductDetails = ({ id }: { id: number }) => {
   const [selectedVariantIndex, setSelectedVariantIndex] = useState<number | null>(null);
   const { data: product, isLoading, error } = useProduct({ id });
 
-  console.log({product});
+  console.log({ product });
 
   const addToCart = (product: IProduct, quantity: number = 1) => {
     if (selectedVariantIndex === null) {
@@ -40,16 +40,17 @@ const ProductDetails = ({ id }: { id: number }) => {
   };
 
   return product ? (
-    <div className="max-w-[1200px] min-h-[55vh] mx-auto mt-[100px] flex justify-center gap-10">
+    <div className="sm:max-w-[1200px] min-h-[55vh] mx-auto mt-[100px] flex flex-col px-[10px] sm:px-0 sm:flex-row justify-center gap-10">
       {/* Left Image Section */}
-      <div className="flex gap-5">
+      <div className="flex flex-col sm:flex-row items-center gap-5">
         <Image
           width={360}
           height={440}
           alt={product.title}
           src={activeImageIndex === null ? product.coverImage : product.images[activeImageIndex]}
+          className="aspect-[9/11]"
         />
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-row sm:flex-col gap-2">
           {product.images.map((img, i) => (
             <Image
               key={i}
@@ -57,9 +58,8 @@ const ProductDetails = ({ id }: { id: number }) => {
               alt={product.title}
               width={60}
               height={115}
-              className={`cursor-pointer aspect-[9/10] ${
-                activeImageIndex === i ? "" : "opacity-50"
-              }`}
+              className={`cursor-pointer aspect-[9/10] ${activeImageIndex === i ? "" : "opacity-50"
+                }`}
               onClick={() => setActiveImageIndex(i)}
             />
           ))}
@@ -67,13 +67,16 @@ const ProductDetails = ({ id }: { id: number }) => {
       </div>
 
       {/* Right Product Info Section */}
-      <div className="border rounded-lg px-[30px] py-[20px] flex flex-col basis-[30%]">
+      <div className="sm:border rounded-lg px-[30px] py-[20px] flex flex-col basis-[30%]">
         <p className="font-semibold">{product.title}</p>
-        <span className="flex flex-col font-semibold mb-4">
-          <p className="text-red-400 line-through">${product.price.display}</p>
-          <p>${product.price.retail}</p>
-        </span>
-        <p>MRP incl. of all taxes</p>
+        <p className="">{product.subTitle}</p>
+        <div className="flex sm:flex-col flex-row-reverse justify-between items-center">
+          <span className="flex flex-col font-semibold mb-4">
+            <p className="text-red-400 line-through">${product.price.display}</p>
+            <p>${product.price.retail}</p>
+          </span>
+          <p>MRP incl. of all taxes</p>
+        </div>
         <p className="font-semibold my-5">{product.description}</p>
 
         {/* Variant Selection */}
@@ -88,9 +91,8 @@ const ProductDetails = ({ id }: { id: number }) => {
                 return (
                   <div
                     key={index}
-                    className={`flex items-center gap-2 p-2 border rounded cursor-pointer transition-all duration-150 ${
-                      isSelected ? "border-black ring-1 ring-black" : "border-gray-300"
-                    } ${isOutOfStock ? "opacity-50 cursor-not-allowed" : ""}`}
+                    className={`flex items-center gap-2 p-2 border rounded cursor-pointer transition-all duration-150 ${isSelected ? "border-black ring-1 ring-black" : "border-gray-300"
+                      } ${isOutOfStock ? "opacity-50 cursor-not-allowed" : ""}`}
                     onClick={() => {
                       if (!isOutOfStock) setSelectedVariantIndex(index);
                     }}
