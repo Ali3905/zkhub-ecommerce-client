@@ -57,11 +57,11 @@ const CartPage = () => {
     }, [products])
 
     return (
-        <div className='max-w-[1500px] mx-auto px-[100px]'>
+        <div className='max-w-[1500px] mx-auto px-[10px] sm:px-[100px]'>
             <h2 className='font-bold text-[48px] border-b mb-[20px]'>Cart</h2>
-            <div className='flex items-start'>
+            <div className='flex flex-col sm:flex-row items-start'>
                 {
-                    isLoading ? <p>Loading...</p> : error ? <p>{error}</p> : products ? <div className='flex gap-5 flex-wrap basis-[70%]'>
+                    isLoading ? <p>Loading...</p> : error ? <p>{error}</p> : products ? <div className='flex flex-col sm:flex-row gap-5 flex-wrap sm:basis-[70%]'>
                         {
                             products.map((pro: ICartItem) => {
                                 return <CartItem product={pro} handleRemove={removeFromCart} updateQuantity={updateQuantity} key={pro.product._id} />
@@ -93,7 +93,7 @@ const CartItem = ({ product, handleRemove, updateQuantity }: { product: ICartIte
     }
 
     return (
-        <div className='flex gap-2 w-[45%] flex-grow-0'>
+        <div className='flex gap-2 sm:w-[45%] flex-grow-0'>
             <ProductCard product={product.product} className={"w-full flex-grow-0"} />
             <div className='flex flex-col'>
                 <XCircle className='cursor-pointer' onClick={() => handleRemove(product.product._id)} />
@@ -114,7 +114,7 @@ const CartItem = ({ product, handleRemove, updateQuantity }: { product: ICartIte
 const BillCard = ({ bill }: { bill: { subTotal: number, shipping: number, total: number } }) => {
     const router = useRouter()
     return (
-        <div className='basis-[30%] px-[40px] py-[50px] flex flex-col gap-4 border max-h-fit'>
+        <div className='sm:basis-[30%] w-full px-[20px] sm:px-[40px] py-[10px] sm:py-[50px] flex flex-col gap-4 border max-h-fit'>
             <p className='font-semibold text-[16px] uppercase'>Order Summary</p>
             <p className='font-medium flex justify-between'>Subtotal <p>${bill.subTotal}</p></p>
             <p className='font-medium flex justify-between'>Shipping <p>${bill.shipping}</p></p>

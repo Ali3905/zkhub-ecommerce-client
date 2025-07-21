@@ -40,9 +40,9 @@ const CheckoutPage = () => {
         }
     }, [products])
     return (
-        <div className='max-w-[1500px] mx-auto px-[100px] py-[100px]'>
+        <div className='max-w-[1500px] mx-auto px-[10px] sm:px-[100px] py-[20px] sm:py-[100px]'>
             <h2 className='uppercase font-bold text-[32px]'>Checkout</h2>
-            <div className='flex items-start gap-5'>
+            <div className='flex flex-col sm:flex-row items-start gap-5'>
                 <CheckoutForm items={products} />
                 <OrderItemsContainer products={products} bill={bill} />
             </div>
@@ -52,7 +52,7 @@ const CheckoutPage = () => {
 
 const OrderItemsContainer = ({ products, bill }: { products: ICartItem[] | null, bill: { subTotal: number, shipping: number, total: number } }) => {
     return (
-        <div className='min-w-[30%] p-[35px] border mt-10'>
+        <div className='min-w-[30%] w-full sm:w-auto p-[20px] sm:p-[35px] border mt-10'>
             <p className="text-sm font-semibold text-gray-700 uppercase">YOUR ORDER</p>
             {products ? <div className='py-5 border-b flex flex-col gap-3'>
                 {
