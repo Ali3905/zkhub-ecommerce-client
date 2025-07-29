@@ -25,7 +25,7 @@ export const filterConfig = [
     component: PriceRangeFilter,
     props: {
       title: 'Price Range',
-      currency: '$'
+      currency: 'Rs'
     }
   },
   {
@@ -34,11 +34,10 @@ export const filterConfig = [
     props: {
       title: 'Categories',
       options: [
-        { value: 'shirts', label: 'Shirts' },
-        { value: 'pants', label: 'Pants' },
-        { value: 'shoes', label: 'Shoes' },
-        { value: 'accessories', label: 'Accessories' },
-        { value: 'jackets', label: 'Jackets' }
+        { value: 'airpods', label: 'Air Pods' },
+        { value: 'mobileCovers', label: 'Mobile Covers' },
+        { value: 'cables', label: 'Cables' },
+        { value: 'chargers', label: 'Chargers' },
       ],
       multiple: true
     }

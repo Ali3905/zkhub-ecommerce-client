@@ -16,12 +16,19 @@ export interface IProduct {
   stock: number;
   sales: number;
   rating: number;
+  variants: Array<{
+    color: string;
+    model?: string; // Optional model field
+    stock: number;
+    images?: string[]; // Optional: different images per variant
+  }>;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export interface ICartItem {
   product: IProduct;
+  variantIndex: number;
   quantity: number;
   color?: string;
   size?: "XS" | "S" | "M" | "L" | "XL" | "XXL";

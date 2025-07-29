@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import SearchBar from './Search'
+import Link from 'next/link'
 
 const Navbar = ({ handleOpenSidebar }) => {
     const router = useRouter()
@@ -28,7 +29,7 @@ const Navbar = ({ handleOpenSidebar }) => {
             <div className='flex gap-[20px] items-center'>
                 {<Menu className='md:hidden block' onClick={handleOpenSidebar} />}
                 <ul className='flex gap-[20px] items-center font-semibold'>
-                    <li>Home</li>
+                    <Link href={"/"} className='cursor-pointer'><li>Home</li></Link>
                     <div>
                         {showSearch && <SearchBar />}
                     </div>

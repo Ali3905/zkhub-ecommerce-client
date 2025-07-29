@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PriceRangeFilter = ({ title, currency = '$', value = { min: '', max: '' }, onChange }) => {
+const PriceRangeFilter = ({ title, currency = 'Rs', value = { min: '', max: '' }, onChange }) => {
   const handleMinChange = (e) => {
     onChange({ ...value, min: e.target.value });
   };
