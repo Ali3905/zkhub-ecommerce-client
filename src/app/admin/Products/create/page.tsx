@@ -83,6 +83,7 @@ const CreateProductPage = () => {
             alert(`Product Created Successfully!\nTitle: ${res.data.data.title}`);
             reset();
         } catch (error) {
+            console.log(error);
             alert("Could not create product, please try again");
         } finally {
             setIsSubmitting(false);

@@ -45,7 +45,7 @@ const ProductImages = ({
 
 const VariantSelector = ({
   product,
-  selectedVariantIndex,
+  // selectedVariantIndex,
   setSelectedVariantIndex,
 }: {
   product: IProduct;
@@ -122,9 +122,8 @@ const VariantSelector = ({
                     setSelectedColor(null);
                     setSelectedVariantIndex(null);
                   }}
-                  className={`px-4 py-1 rounded border text-sm ${
-                    isSelected ? "bg-black text-white" : "bg-white text-black"
-                  } ${!anyInStock ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+                  className={`px-4 py-1 rounded border text-sm ${isSelected ? "bg-black text-white" : "bg-white text-black"
+                    } ${!anyInStock ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
                 >
                   {model}
                 </button>
@@ -152,7 +151,8 @@ const VariantSelector = ({
                 key={i}
                 disabled={!variant || isOutOfStock}
                 onClick={() => {
-                  selectedColor === color ? setSelectedColor(null) : setSelectedColor(color);
+                  if (selectedColor === color) { setSelectedColor(null) } else { setSelectedColor(color) }
+                  
                   if (variant && !variant.model) {
                     autoSelectVariant(color);
                   } else if (selectedModel && variant) {
@@ -162,9 +162,8 @@ const VariantSelector = ({
                     setSelectedVariantIndex(null);
                   }
                 }}
-                className={`px-4 py-1 rounded border text-sm ${
-                  isSelected ? "bg-black text-white" : "bg-white text-black"
-                } ${!variant || isOutOfStock ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+                className={`px-4 py-1 rounded border text-sm ${isSelected ? "bg-black text-white" : "bg-white text-black"
+                  } ${!variant || isOutOfStock ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
               >
                 {color}
               </button>

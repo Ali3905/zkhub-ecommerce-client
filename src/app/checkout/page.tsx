@@ -1,5 +1,5 @@
 "use client"
-import Form, { DynamicField, FormField } from '@/components/Form';
+import { DynamicField, FormField } from '@/components/Form';
 import { ICartItem } from '@/types/product';
 import axios from 'axios';
 import Image from 'next/image';
@@ -85,7 +85,7 @@ const OrderItemsContainer = ({ products, bill }: { products: ICartItem[] | null,
 }
 
 const CheckoutForm = ({ items }) => {
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const isSubmitting = false;
     const { register, handleSubmit, control, formState: { errors }, reset } = useForm({
         defaultValues: {
             variants: []

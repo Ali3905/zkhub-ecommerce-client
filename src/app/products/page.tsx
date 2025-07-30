@@ -49,18 +49,27 @@ const PageContainer = ({ handleCloseSidebar, isOpen }) => {
     // ratings: []
   });
 
+  useEffect(() => {
+    let filtered = [...products];
+    if (q) {
+      if (q && q !== "") {
+        filtered = filtered.filter((product: IProduct) => {
+          return product.title.toLowerCase().includes(q.toLowerCase()) || product?.subTitle?.toLowerCase().includes(q.toLowerCase()) || product.description.toLowerCase().includes(q.toLowerCase()) || product?.category?.includes(q.toLowerCase())
+        })
+      }
+      setFilters({
+        ...filters, categories: [...filters.categories, q]
+      })
+      setFilteredProducts(filtered);
+    }
+    // eslint-disable-next-line
+  }, [q])
+
   // Apply filters whenever filters or products change
   useEffect(() => {
     let filtered = [...products];
 
     console.log({ filters, filtered });
-
-    if (q && q !== "") {
-      filtered = filtered.filter((product: IProduct) => {
-        return product.title.toLowerCase().includes(q.toLowerCase()) || product?.subTitle?.toLowerCase().includes(q.toLowerCase()) || product.description.toLowerCase().includes(q.toLowerCase()) || product?.category?.includes(q.toLowerCase())
-      })
-    }
-
     // Size filter
     // if (filters?.sizes && filters?.sizes.length > 0) {
     //   filtered = filtered.filter((product: IProduct) => {
@@ -92,9 +101,10 @@ const PageContainer = ({ handleCloseSidebar, isOpen }) => {
     // }
 
     setFilteredProducts(filtered);
-    console.log({ q });
 
-  }, [filters, products, q]);
+  }, [filters, products]);
+
+
 
   const handleFilterChange = (newFilters: Filters) => {
     setFilters(newFilters);

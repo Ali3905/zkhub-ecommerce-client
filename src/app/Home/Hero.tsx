@@ -10,9 +10,10 @@ const Hero = () => {
     return (
         <div className='max-w-[1600px] mx-auto sm:px-[70px] px-[10px]'>
             <div className='flex flex-col items-start'>
-                <p>Men</p>
-                <p>Women</p>
-                <p>Kids</p>
+                <p onClick={() => router.push(`/products?q=airpods`)} className='text-md cursor-pointer hover:text-blue-400'>Air Pods</p>
+                <p onClick={() => router.push(`/products?q=mobileCovers`)} className='text-md cursor-pointer hover:text-blue-400'>Mobile Covers</p>
+                <p onClick={() => router.push(`/products?q=chargers`)} className='text-md cursor-pointer hover:text-blue-400'>Chargers</p>
+                
                 <SearchBar />
             </div>
             <div className='flex flex-col sm:flex-row gap-[10px] mt-[50px]'>

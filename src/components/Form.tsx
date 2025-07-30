@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useFieldArray, Controller } from 'react-hook-form';
 import { Plus, Trash2, Upload, X } from 'lucide-react';
+import Image from 'next/image';
 
 // Form Field Components
 export const FormField = ({ label, error, children, required = false }) => (
@@ -47,7 +48,7 @@ export const Select = ({ placeholder, options, error, ...props }) => (
     </select>
 );
 
-export const FileInput = ({ multiple, accept = "image/*", error, onChange, value }) => {
+export const FileInput = ({ multiple, accept = "image/*", error, onChange }) => {
     const [previews, setPreviews] = useState([]);
 
     const handleFileChange = (e) => {
@@ -99,9 +100,11 @@ export const FileInput = ({ multiple, accept = "image/*", error, onChange, value
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {previews.map((preview, index) => (
                         <div key={index} className="relative">
-                            <img
+                            <Image
                                 src={preview.url}
                                 alt={`Preview ${index}`}
+                                width={24}
+                                height={24}
                                 className="w-full h-24 object-cover rounded-lg"
                             />
                             <button
@@ -257,7 +260,7 @@ export const NestedFieldsArray = ({ field, control, register, errors }) => {
 
             {fields.length === 0 && (
                 <div className="text-center py-8 text-gray-500">
-                    No {field.placeholder.toLowerCase()} added yet. Click "Add {field.placeholder.slice(0, -1)}" to get started.
+                    No {field.placeholder.toLowerCase()} added yet. Click &quot;Add {field.placeholder.slice(0, -1)}&quot; to get started.
                 </div>
             )}
         </div>
