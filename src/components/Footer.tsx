@@ -4,10 +4,12 @@ import Categories from './FooterCategories'
 
 const Footer = () => {
     return (
-        <div className='max-w-[1500px] mx-auto px-[20px] sm:px-[70px] py-[50px] flex gap-5 justify-between bg-gray-300 mt-[50px]'>
-            <Address />
-            <Categories />
-            <NewsLetterSignup />
+        <div className='px-[20px] sm:px-[70px] py-[50px] bg-gray-300 mt-[50px]'>
+            <div className='max-w-[1500px] mx-auto flex flex-col sm:flex-row gap-5 justify-between bg-gray-300'>
+                <Address />
+                <Categories />
+                <NewsLetterSignup />
+            </div>
         </div>
     )
 }
@@ -37,7 +39,7 @@ const Address = () => {
 const NewsLetterSignup = () => {
     return (
         <div className='flex flex-col gap-2 basis-[33%]'>
-            <h3 className='font-semibold text-[20px] uppercase'>NewLetter Signup</h3>
+            <h3 className='font-semibold text-[20px] uppercase'>NewsLetter Signup</h3>
             <p className='sm:max-w-[60%]'>Subscribe to our newsletter to get offers and updates</p>
             <label htmlFor="newsLetter" className='border rounded-full pl-4 -2 flex justify-between'>
                 <input type="email" placeholder='Your email address' name='newsLetter' id='newsLetter' className='outline-none' />

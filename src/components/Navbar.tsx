@@ -25,11 +25,11 @@ const Navbar = ({ handleOpenSidebar }) => {
 
 
     return (
-        <div className='flex items-center justify-between pt-[30px] pb-[10px] px-[70px] sticky top-0 left-0 bg-white z-50'>
+        <div className='flex items-center justify-between pt-[30px] pb-[10px] sm:px-[70px] px-[10px]  sticky top-0 left-0 bg-white z-50'>
             <div className='flex gap-[20px] items-center'>
-                {<Menu className='md:hidden block' onClick={handleOpenSidebar} />}
+                {<Menu className='md:hidden block opacity-0' onClick={handleOpenSidebar} />}
                 <ul className='flex gap-[20px] items-center font-semibold'>
-                    <Link href={"/"} className='cursor-pointer'><li>Home</li></Link>
+                    <Link href={"/"} className='cursor-pointer hidden sm:block'><li>Home</li></Link>
                     <div>
                         {showSearch && <SearchBar />}
                     </div>
